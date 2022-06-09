@@ -1,0 +1,18 @@
+version: '3.1'
+services:
+  ddl-to-schema:
+    image: ddl-to-schema
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        postgres_version: latest
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    volumes:
+      - type: bind
+        source: ./ddl
+        target: /docker-entrypoint-initdb.d
+      - type: bind
+        source: ./dest
+        target: /dest
